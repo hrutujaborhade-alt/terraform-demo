@@ -1,2 +1,24 @@
 name: terraform deployment
 on: push
+jobs: 
+ deploy:
+   env: 
+       AWS_ACCESS_KEY_ID: "${{}}"
+       AWS_SECRET_ACCESS_KEY: "${{ }}"
+       AWS_SESSION_TOKEN: "${{}}"
+   runs-on: ubuntu-latest
+   steps:
+     - name : code checkout
+       uses : actions/checkout@v4
+     - name : set up terraform
+       uses : hashicorp/setup-terraform@v3
+       with:
+         terraform_version : 1.12.2
+
+     - name : terraform init, plan
+       run : |
+         terraform init
+         terraform plan
+
+     - name : terraform apply
+       run : terraform apply

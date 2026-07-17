@@ -6,26 +6,12 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment : dev
 
     steps:
       - name: Checkout code
         uses: |
          actions/checkout@v4
-         
-
-      - name: Check if secrets exist
-        run: |
-          if [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ]; then
-          echo "Access Key is EMPTY"
-          else
-          echo "Access Key exists"
-          fi
-
-          if [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]; then
-          echo "Secret Key is EMPTY"
-          else
-          echo "Secret Key exists"
-          fi  
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
